@@ -1,0 +1,18 @@
+<mvc:View
+  controllerName="in.asint.task.taskm.controller.CustomerDetail"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m">
+
+  <Page title="Customer Details" showNavButton="true" navButtonPress=".onNavBack">
+    <content>
+      <ObjectHeader
+        title="{CompanyName}"
+        number="{CustomerID}" />
+      <ObjectAttribute title="Contact Name" text="{ContactName}" />
+      <ObjectAttribute title="City" text="{City}" />
+      <ObjectAttribute title="Region" text="{Region}" />
+      <ObjectAttribute title="Country" text="{Country}" />
+      <ObjectAttribute title="Phone" text="{Phone}" />
+    </content>
+  </Page>
+</mvc:View>

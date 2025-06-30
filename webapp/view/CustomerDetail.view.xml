@@ -3,16 +3,16 @@
   xmlns:mvc="sap.ui.core.mvc"
   xmlns="sap.m">
 
-  <Page title="Customer Details" showNavButton="true" navButtonPress=".onNavBack">
+  <Page title="{i18n>customerDetail.title}" showNavButton="true" navButtonPress=".onNavBack">
     <content>
       <ObjectHeader
         title="{CompanyName}"
         number="{CustomerID}" />
-      <ObjectAttribute title="Contact Name" text="{ContactName}" />
-      <ObjectAttribute title="City" text="{City}" />
-      <ObjectAttribute title="Region" text="{Region}" />
-      <ObjectAttribute title="Country" text="{Country}" />
-      <ObjectAttribute title="Phone" text="{Phone}" />
+      <ObjectAttribute title="{i18n>contactName}" text="{ContactName}" />
+      <ObjectAttribute title="{i18n>city}" text="{City}" />
+      <ObjectAttribute title="{i18n>region}" text="{Region}" />
+      <ObjectAttribute title="{i18n>country}" text="{Country}" />
+      <ObjectAttribute title="{i18n>phone}" text="{Phone}" />
     </content>
   </Page>
 </mvc:View>

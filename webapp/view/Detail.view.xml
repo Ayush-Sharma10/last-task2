@@ -2,44 +2,58 @@
   controllerName="in.asint.task.taskm.controller.Detail"
   xmlns:mvc="sap.ui.core.mvc"
   xmlns="sap.m"
-  xmlns:core="sap.ui.core">
+  xmlns:core="sap.ui.core"
+  xmlns:viz="sap.viz.ui5.controls"
+  xmlns:viz.data="sap.viz.ui5.data"
+  xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds">
 
-  <Page id="page" title="{i18n>title}">
+  <Page id="page" title="{i18n>title}" class="sapUiTinyMargin">
     <content>
 
       <Toolbar id="toolbar">
-        <Title id="titlee" text="Customers" level="H2" />
+        <Title id="titlee" text="{i18n>toolbar.title}" level="H2" />
         <ToolbarSpacer id="toolbarSpacerr" />
 
         <Select id="selectt"
           width="180px"
           change=".onSortCustomers">
           <items>
-            <core:Item id="itemm" key="CompanyName" text="Sort by Company Name" />
-            <core:Item id="item1" key="City" text="Sort by City" />
+            <core:Item id="itemm" key="CompanyName" text="{i18n>sort.byCompany}" />
+            <core:Item id="item1" key="City" text="{i18n>sort.byCity}" />
           </items>
         </Select>
 
         <SearchField id="searchfield"
-          placeholder="Search by Company Name"
+          placeholder="{i18n>search.placeholder}"
           liveChange=".onFilterCustomers"
           width="50%" />
 
+        <Button
+          id="groupButton"
+          text="{i18n>group.byCountry}"
+          press=".onGroupByCountry" />
+
         <Button 
           id="themeButton"
-          text="Toggle Dark/Light"
+          text="{i18n>theme.toggle}"
           press=".onToggleTheme" />
       </Toolbar>
 
       <Table
         id="customerTable"
-        items="{
-          path: '/Customers'
-        }">
+        items="{ path: '/Customers' }"
+        mode="None"
+        growing="true" 
+        growingScrollToLoad="false"
+        growingThreshold="10"
+        busyIndicatorDelay="0">
         <columns>
-          <Column id="column"><Text id="textt" text="ID" /></Column>
-          <Column id="column1"><Text id="texttt" text="Company Name" /></Column>
-          <Column id="columnnn"><Text id="texxt" text="City" /></Column>
+          <Column id="column"><Text id="textt" text="{i18n>sort.byId}" /></Column>
+          <Column id="column1"><Text id="texttt" text="{i18n>sort.Company}" /></Column>
+          <Column id="columnn"><Text id="texxtt" text="{i18n>sort.City}" /></Column>
+          <Column id="columnnn"><Text id="texxte" text="{i18n>sort.byContactTitle}" /></Column>
+          <Column id="colun"><Text id="texx" text="{i18n>sort.byPostalCode}" /></Column>
+          <Column id="colu"><Text id="tex" text="{i18n>sort.byCountry}" /></Column>
         </columns>
         <items>
           <ColumnListItem id="columnlistitem" press=".onCustomerPress" type="Active">
@@ -47,43 +61,42 @@
               <Text id="text12" text="{CustomerID}" />
               <Text id="text23" text="{CompanyName}" />
               <Text id="text34" text="{City}" />
+              <Text id="text345" text="{ContactTitle}" />
+              <Text id="text3" text="{PostalCode}" />
+              <Text id="text93" text="{path: 'Country', formatter: '.formatter.countryEmoji'}" />
             </cells>
           </ColumnListItem>
         </items>
       </Table>
 
       <VBox id="vboxx">
-  <items>
-<Title id="titl" text="Customer Count by City" level="H4"  class="sapUiSmallMarginBottom" />
+        <items>
+          <Title id="titl" text="{i18n>chart.title}" level="H4" class="sapUiSmallMarginBottom" />
 
-    <viz:VizFrame
-      id="idVizFrame"
-      width="100%"
-      height="400px"
-      vizType="pie"
-      xmlns:viz="sap.viz.ui5.controls"
-      xmlns:viz.data="sap.viz.ui5.data"
-      xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds">
-      
-      <viz:dataset>
-        <viz.data:FlattenedDataset data="{/Customers}">
-          <viz.data:dimensions>
-            <viz.data:DimensionDefinition name="City" value="{City}" />
-          </viz.data:dimensions>
-          <viz.data:measures>
-            <viz.data:MeasureDefinition name="Count" value="1" />
-          </viz.data:measures>
-        </viz.data:FlattenedDataset>
-      </viz:dataset>
+          <viz:VizFrame
+            id="idVizFrame"
+            width="100%"
+            height="400px"
+            vizType="column">
 
-      <viz:feeds>
-        <viz.feeds:FeedItem uid="size" type="Measure" values="Count" />
-        <viz.feeds:FeedItem uid="color" type="Dimension" values="City" />
-      </viz:feeds>
-    </viz:VizFrame>
-  </items>
-  
-</VBox>
+            <viz:dataset>
+              <viz.data:FlattenedDataset data="{/Customers}">
+                <viz.data:dimensions>
+                  <viz.data:DimensionDefinition name="Contact Title" value="{ContactTitle}" />
+                </viz.data:dimensions>
+                <viz.data:measures>
+                  <viz.data:MeasureDefinition name="Count" value="1" />
+                </viz.data:measures>
+              </viz.data:FlattenedDataset>
+            </viz:dataset>
+            <!--defines how your data should be mapped-->
+            <viz:feeds>
+              <viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Count" />
+              <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Contact Title" />
+            </viz:feeds>
+          </viz:VizFrame>
+        </items>
+      </VBox>
 
     </content>
   </Page>

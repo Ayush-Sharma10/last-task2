@@ -7,9 +7,7 @@ sap.ui.define([
     onInit: function () {
       this.getOwnerComponent().getRouter()
         .getRoute("RouteCustomer")
-        .attachPatternMatched(this._onRouteMatched, this); //Registers a listener for the route "RouteCustomer".
-        //When the route is matched (e.g., from navTo("RouteCustomer", { CustomerID })), it calls _onRouteMatched.
-        //Registers a callback function (_onRouteMatched) to be called whenever the route pattern is matched
+        .attachPatternMatched(this._onRouteMatched, this);
     },
 
     _onRouteMatched: function (oEvent) {
@@ -19,7 +17,7 @@ sap.ui.define([
     },
 
     onNavBack: function () {
-      window.history.go(-1); //window.history.go(-1) is equivalent to pressing the browser’s Back button once.
+      window.history.go(-1);
     }
   });
 });
